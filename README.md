@@ -1,8 +1,8 @@
-# nba-team
+# NBA TEAM
 
-# RUN DEV 
-# => npm run dev
+### RUN ENV DEV
+npm run dev
 
-# RUN PROD 
-# => npm run build
-# => npm run start
+### RUN PROD 
+npm run build
+npm run start

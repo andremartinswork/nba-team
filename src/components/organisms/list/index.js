@@ -133,15 +133,6 @@ function List(props) {
       }
     }
 
-    function RenderError() {
-      if (statusData === 3) {
-        return (
-          <div>Error...</div>
-        )
-      }
-      return null
-    }
-
     function RenderLoading() {
       if (statusData === 1) {
         return (
@@ -168,7 +159,6 @@ function List(props) {
     return (
       <Block>
         {RenderRows()}
-        {RenderError()}
         {RenderLoading()}
         {RenderPagination()}
       </Block>

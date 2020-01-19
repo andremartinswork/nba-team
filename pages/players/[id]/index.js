@@ -31,6 +31,7 @@ function PlayerDetail(props) {
         {...player}
       />
       <List
+        orderBy="id"
         request="getPlayerStats"
         url="playerStats"
         id={id}
@@ -50,11 +51,13 @@ PlayerDetail.getInitialProps = async ({ query }) => {
     const stats = await axios.post(`${SERVER}/getPlayerStats`, { data: { id: id, page: 1 } });
   
     if (!player.error && !stats.error) {
+      const sortedData = stats.data.data.sort((a, b) => (a.id > b.id) ? 1 : -1);
+  
       return {
         id,
         player: player.data.data,
         playerError: false,
-        initialStatsData: stats.data.data,
+        initialStatsData: sortedData,
         initialStatsMeta: stats.data.meta,
         statsError: false
       }
