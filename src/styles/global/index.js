@@ -85,6 +85,21 @@ const GlobalStyle = createGlobalStyle`
       transform: rotate(360deg);
     }
   }
+
+  .page-transition-enter {
+    opacity: 0;
+  }
+  .page-transition-enter-active {
+    opacity: 1;
+    transition: all 300ms;
+  }
+  .page-transition-exit {
+    opacity: 1;
+  }
+  .page-transition-exit-active {
+    opacity: 0;
+    transition: all 300ms;
+  }
 `;
 
 export default GlobalStyle;

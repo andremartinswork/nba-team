@@ -2,6 +2,7 @@ import App from 'next/app'
 import React from 'react';
 import NProgress from 'nprogress'
 import Router from 'next/router'
+import { PageTransition } from 'next-page-transitions'
 
 import {
   Layout,
@@ -26,7 +27,9 @@ class MyApp extends App {
         <ResetCss />
         <Global />
         <Layout>
-          <Component {...pageProps} />
+          <PageTransition timeout={300} classNames="page-transition">
+            <Component {...pageProps} />
+          </PageTransition>
         </Layout>
       </>
     )

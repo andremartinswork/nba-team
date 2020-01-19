@@ -19,7 +19,9 @@ function Sidebar() {
   const router = useRouter()
 
   function LinkActive(href) {
-    if (router.asPath === href) {
+    const routerSplit = router.asPath.split('/');
+
+    if (`/${routerSplit[1]}` === href) {
       return true
     }
     return false
