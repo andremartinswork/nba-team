@@ -2,18 +2,15 @@ const express = require('express');
 const next = require('next');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const routes = require('./routes')
 
-const port = parseInt(process.env.PORT, 10) || 3000;
-const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
-const handler = routes.getRequestHandler(app);
+const port = parseInt(process.env.PORT, 10) || 3000
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
 
-// I18N
-const GetPlayers = require('./src/requests/players');
-
-// LIST
 const List = require('./src/requests/list');
+const Detail = require('./src/requests/detail');
+const Stats = require('./src/requests/stats');
 
 app.prepare().then(() => {
   const server = express();
@@ -21,14 +18,12 @@ app.prepare().then(() => {
   server.use(cors());
   server.use(bodyParser.json());
 
-  // GET I18N
-  GetPlayers(server)
-
-  // LIST
   List(server);
+  Detail(server);
+  Stats(server);
 
   server.get('*', (req, res) => {
-    return handler(req, res)
+    return handle(req, res)
   })
 
   server.listen(port, err => {

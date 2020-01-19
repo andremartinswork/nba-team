@@ -1,19 +1,20 @@
 const { api } = require('../../lib/api');
 
 module.exports = (server) => {
-  server.post('/getList', async(req, res) => {
+  server.post('/getDetail', async(req, res) => {
     const {
       url,
-      page,
+      id,
     } = req.body.data;
 
     try {
-      const response = await api.get(`/${url}`, { data : { page }})
+      const response = await api.get(`/${url}/${id}`)
       const { data } = response;
 
+      console.log(data)
+
       return res.send({
-        data: data ? data.data : [],
-        meta: data ? data.meta : [],
+        data: data ? data : [],
         error: false,
         errorMessage: null,
       })
@@ -21,7 +22,6 @@ module.exports = (server) => {
     catch(error) {
       return res.send({
         data: [],
-        meta: [],
         error: true,
         errorMessage: error.message,
       })

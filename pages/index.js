@@ -1,23 +1,21 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react'
+import Head from 'next/head'
+// import { getInitialLocale } from '../src/translations/getInitialLocate'
+import { useRouter } from 'next/router';
 
-import {
-  SERVER
-} from '../config';
+function Index() {
+  const router = useRouter();
 
-function Index(props) {
+  // useEffect(() => {
+  //   router.replace('/[lang]', `/${getInitialLocale()}`)
+  // })
+
   return (
-    <h1>INDEX</h1>
+    <Head>
+      <title>Nba Teams</title>
+      <meta name="robots" content="noindex, nofollow" />
+    </Head>
   )
-}
-
-Index.getInitialProps = async ({ query }) => {
-  const players = await axios.get(`${SERVER}/getPlayers`);
-  console.log('PLayers', players.data);
-
-  return {
-    data: players.data
-  }
 }
 
 export default Index;

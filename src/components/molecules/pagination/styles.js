@@ -1,20 +1,6 @@
 import styled from 'styled-components';
 
-const Block = styled.div`
-  -webkit-box-shadow: 0px 0px 12px -1px rgba(41,39,95,0.06);
-  -moz-box-shadow: 0px 0px 12px -1px rgba(41,39,95,0.06);
-  box-shadow: 0px 0px 12px -1px rgba(41,39,95,0.06);
-  border-radius: 24px;
-  background-color: white;
-`;
-const Header = styled.div`
-  padding: 32px;
-  display: flex;
-`;
-const Rows = styled.div``;
-
-
-const Pagination = styled.div`
+const WrapperPagination = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -52,8 +38,5 @@ const Pagination = styled.div`
 `;
 
 export {
-  Block,
-  Header,
-  Rows,
-  Pagination,
+  WrapperPagination
 }

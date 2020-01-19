@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head'
 
 import {
   Wrapper,
@@ -14,9 +15,14 @@ function Layout(props) {
     children
   } = props;
 
+  const locale = 'en'
+
   return (
     <Wrapper>
-      <Sidebar />
+      <Head>
+        <title>Nba Team</title>
+      </Head>
+      <Sidebar locale={locale}/>
       <Main>
         {children}
       </Main>

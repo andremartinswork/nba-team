@@ -3,45 +3,46 @@ import axios from 'axios';
 
 import {
   SERVER
-} from '../config';
+} from '../../../config';
 
 import {
   Header,
-} from '../src/components/molecules';
+} from '../../../src/components/molecules';
 
 import {
   List,
-} from '../src/components/organisms';
+} from '../../../src/components/organisms';
 
-function Teams(props) {
+function Players(props) {
   const {
     initialData,
     initialMeta,
     error,
   } = props;
 
-  console.log('PROPS', props);
+  const locale = "en"
 
   return (
     <>
       <Header 
-        title="Teams"
+        title="Players"
       />
       <List
-        url="teams"
+        url="players"
         initialData={initialData}
         initialMeta={initialMeta}
         error={error}
+        locale={locale}
       />
     </>
   )
 }
 
-Teams.getInitialProps = async () => {
+Players.getInitialProps = async () => {
   try {
     const response = await axios.post(`${SERVER}/getList`, {
       data: {
-        url: 'teams',
+        url: 'players',
         page: 1,
       }
     });
@@ -72,4 +73,4 @@ Teams.getInitialProps = async () => {
   }
 }
 
-export default Teams;
+export default Players;

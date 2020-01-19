@@ -1,33 +1,34 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
-import ReactPaginate from 'react-paginate';
 
 import { SERVER } from '../../../../config';
 
 import {
   Block,
-  Rows,
-  Pagination,
-} from './styles';
+} from '../../atoms';
 
 import {
   ItemTeam,
   ItemPlayer,
   ItemGame,
+  ItemPlayerStats,
+  Pagination,
 } from '../../molecules';
 
 function List(props) {
   const {
+    id,
+    request = "getList",
     url,
     initialData,
     initialMeta,
-    error
+    error,
+    locale
   } = props;
 
   if (error) {
     return (
-      <div>Erro</div>
+      <div>Error</div>
     )
   }
   else {
@@ -36,20 +37,36 @@ function List(props) {
     const [data, setData] = useState(initialData);
     const [meta, setMeta] = useState(initialMeta);
 
-    // GET MORE DATA
     function GetData(selected) {
       setStatusData(1);
 
-      axios.post(`${SERVER}/getList`, { data: {
-        url: url,
-        page: selected,
-      }})
+      let dataToSend = {}
+
+      if (url === 'playerStats') {
+        dataToSend = {
+          id: id,
+          url: url,
+          page: selected,
+        }
+      }
+      else {
+        dataToSend = {
+          url: url,
+          page: selected,
+        }
+      }
+
+      axios.post(`${SERVER}/${request}`, { data: dataToSend})
       .then(response => {
         const { data } = response;
         if (!data.error) {
+
+          console.log('DAta', data);
           setStatusData(2);
           setData([...data.data])
           setMeta([...data.meta])
+
+          
         }
         else {
           setStatusData(3);
@@ -60,22 +77,21 @@ function List(props) {
       })
     }
 
-    // ON CHANGE PAGINATION NUMBER
     function OnChangePagination(_val) {
       GetData(_val.selected + 1)
     }
 
-    // RENDER LIST
     function RenderRows() {
       if (data.length > 0) {
         return (
-          <Rows>
+          <div>
             {
               data.map((item, index) => {
                 if (url === "teams") {
                   return (
                     <ItemTeam
                       key={String(index)}
+                      locale={locale}
                       {...item}
                     />
                   )
@@ -84,6 +100,7 @@ function List(props) {
                   return (
                     <ItemPlayer
                       key={String(index)}
+                      locale={locale}
                       {...item}
                     />
                   )
@@ -92,6 +109,16 @@ function List(props) {
                   return (
                     <ItemGame
                       key={String(index)}
+                      locale={locale}
+                      {...item}
+                    />
+                  )
+                }
+                else if (url === "playerStats") {
+                  return (
+                    <ItemPlayerStats
+                      key={String(index)}
+                      locale={locale}
                       {...item}
                     />
                   )
@@ -101,28 +128,34 @@ function List(props) {
                 }
               })
             }
-          </Rows>
+          </div>
         )
-      }
+      } 
       else {
         return (
-          <div>No result</div>
+          <div>No results</div>
         )
       }
     }
 
-    // RENDER PAGINATION
+    function RenderLoading() {
+      if (statusData === 1) {
+        return (
+          <div>Loading...</div>
+        )
+      }
+      return null;
+    }
+
     function RenderPagination() {
       if (meta.total_count !== meta.per_page) {
         return (
-          <Pagination>
-            <ReactPaginate
-              pageCount={meta.total_count}
-              pageRangeDisplayed={2}
-              marginPagesDisplayed={2}
-              onPageChange={OnChangePagination}
-            />
-          </Pagination>
+          <Pagination
+            pageCount={meta.total_count}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={2}
+            onPageChange={OnChangePagination}
+          />
         )
       }
       return null
@@ -130,8 +163,8 @@ function List(props) {
 
     return (
       <Block>
-        {/* {RenderHeaderColumns()} */}
         {RenderRows()}
+        {RenderLoading()}
         {RenderPagination()}
       </Block>
     )
@@ -139,13 +172,4 @@ function List(props) {
 }
 
 export default List;
-
-const Column = styled.div`
-  /* width: ${({ width }) => width}; */
-  width: 14%;
-
-  :first-child {
-    width: 6%;
-  }
-`;
 

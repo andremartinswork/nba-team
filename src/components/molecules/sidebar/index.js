@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 
 import {
   Aside,
@@ -10,13 +11,24 @@ import {
   Text,
 } from './styles';
 
-import { MdDashboard } from 'react-icons/md';
 import { GiBabyfootPlayers } from 'react-icons/gi';
 import { FaBasketballBall } from 'react-icons/fa';
 import { AiOutlineTeam } from 'react-icons/ai';
-import { IoMdStats } from 'react-icons/io';
 
-function Sidebar() {
+function Sidebar(props) {
+  const {
+    locale
+  } = props;
+
+  const router = useRouter()
+
+  function LinkActive(href) {
+    if (router.asPath === href) {
+      return true
+    }
+    return false
+  }
+  
   return (
     <Aside>
       <Logo>
@@ -24,21 +36,9 @@ function Sidebar() {
       </Logo>
       <Nav>
 
-        {/* DASHBOARD */}
-        {/* <NavLink active={true}>
-          <Link href="/">
-            <a>
-              <Icon>
-                <MdDashboard />
-              </Icon>
-              <Text>Dashboard</Text>
-            </a>
-          </Link>
-        </NavLink> */}
-
         {/* GAMES */}
-        <NavLink>
-          <Link href="/games">
+        <NavLink active={LinkActive(`/${locale}/games`)}>
+          <Link href="/[lang]/games" as={`/${locale}/games`}>
             <a>
               <Icon>
                 <FaBasketballBall />
@@ -49,8 +49,8 @@ function Sidebar() {
         </NavLink>
 
         {/* TEAMS */}
-        <NavLink>
-          <Link href="/teams">
+        <NavLink active={LinkActive(`/${locale}/teams`)}>
+          <Link href="/[lang]/teams" as={`/${locale}/teams`}>
             <a>
               <Icon>
                 <GiBabyfootPlayers />
@@ -61,8 +61,8 @@ function Sidebar() {
         </NavLink>
 
         {/* PLAYERS */}
-        <NavLink>
-          <Link href="/players">
+        <NavLink active={LinkActive(`/${locale}/players`)}>
+          <Link href="/[lang]/players" as={`/${locale}/players`}>
             <a>
               <Icon>
                 <AiOutlineTeam />
@@ -71,18 +71,6 @@ function Sidebar() {
             </a>
           </Link>
         </NavLink>
-
-        {/* STATS */}
-        {/* <NavLink>
-          <Link href="/stats">
-            <a>
-              <Icon>
-                <IoMdStats />
-              </Icon>
-              <Text>Stats</Text>
-            </a>
-          </Link>
-        </NavLink> */}
       </Nav>
     </Aside>
   )

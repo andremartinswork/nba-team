@@ -25,13 +25,6 @@ const Item = styled.div`
     background-color: #F9F9F9;
   }
 
-  /* :last-child {
-    :nth-child(even) {
-      border-bottom-left-radius: 24px;
-      border-bottom-right-radius: 24px;
-    }
-  } */
-
   @media (hover: hover) {
     :hover {
       cursor: pointer;

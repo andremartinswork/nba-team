@@ -1,14 +1,14 @@
 const { api } = require('../../lib/api');
 
 module.exports = (server) => {
-  server.post('/getList', async(req, res) => {
+  server.post('/getPlayerStats', async(req, res) => {
     const {
-      url,
+      id,
       page,
     } = req.body.data;
 
     try {
-      const response = await api.get(`/${url}`, { data : { page }})
+      const response = await api.get(`/players/${id}/stats`, { data : { page }})
       const { data } = response;
 
       return res.send({

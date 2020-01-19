@@ -3,43 +3,46 @@ import axios from 'axios';
 
 import {
   SERVER
-} from '../config';
+} from '../../../config';
 
 import {
   Header,
-} from '../src/components/molecules';
+} from '../../../src/components/molecules';
 
 import {
   List,
-} from '../src/components/organisms';
+} from '../../../src/components/organisms';
 
-function Players(props) {
+function Games(props) {
   const {
     initialData,
     initialMeta,
     error,
   } = props;
 
+  const locale = "en"
+
   return (
     <>
       <Header 
-        title="Players"
+        title="Games"
       />
       <List
-        url="players"
+        url="games"
         initialData={initialData}
         initialMeta={initialMeta}
         error={error}
+        locale={locale}
       />
     </>
   )
 }
 
-Players.getInitialProps = async () => {
+Games.getInitialProps = async () => {
   try {
     const response = await axios.post(`${SERVER}/getList`, {
       data: {
-        url: 'players',
+        url: 'games',
         page: 1,
       }
     });
@@ -70,4 +73,4 @@ Players.getInitialProps = async () => {
   }
 }
 
-export default Players;
+export default Games;
