@@ -22,6 +22,8 @@ function Games(props) {
 
   const locale = "en"
 
+  console.log('props',props)
+
   return (
     <>
       <Header 
@@ -46,6 +48,8 @@ Games.getInitialProps = async () => {
         page: 1,
       }
     });
+
+    console.log(response);
   
     const { data } = response;
   

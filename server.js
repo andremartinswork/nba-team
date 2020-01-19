@@ -1,6 +1,5 @@
 const express = require('express');
 const next = require('next');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -14,8 +13,6 @@ const Stats = require('./src/requests/stats');
 
 app.prepare().then(() => {
   const server = express();
-
-  server.use(cors());
   server.use(bodyParser.json());
 
   List(server);

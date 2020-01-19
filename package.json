@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
   },
   "repository": {
     "type": "git",
@@ -26,18 +26,13 @@
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
     "axios": "^0.19.1",
-    "clsx": "^1.0.4",
-    "cors": "^2.8.5",
     "express": "^4.17.1",
     "moment": "^2.24.0",
     "next": "^9.1.7",
-    "next-routes": "^1.4.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-icons": "^3.8.0",
     "react-paginate": "^6.3.2",
-    "react-table": "^7.0.0-rc.15",
-    "react-table-6": "^6.11.0",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {

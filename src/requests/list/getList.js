@@ -7,9 +7,13 @@ module.exports = (server) => {
       page,
     } = req.body.data;
 
+    console.log('req.body.data', req.body.data)
+
     try {
       const response = await api.get(`/${url}`, { data : { page }})
       const { data } = response;
+
+      console.log('response', data)
 
       return res.send({
         data: data ? data.data : [],
