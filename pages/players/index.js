@@ -3,59 +3,55 @@ import axios from 'axios';
 
 import {
   SERVER
-} from '../../../config';
+} from '../../config';
 
 import {
   Header,
-} from '../../../src/components/molecules';
+} from '../../src/components/molecules';
 
 import {
   List,
-} from '../../../src/components/organisms';
+} from '../../src/components/organisms';
 
-function Games(props) {
+function Players(props) {
   const {
     initialData,
     initialMeta,
     error,
   } = props;
 
-  const locale = "en"
-
-  console.log('props',props)
-
   return (
     <>
       <Header 
-        title="Games"
+        title="Players"
       />
       <List
-        url="games"
+        orderBy="first_name"
+        url="players"
         initialData={initialData}
         initialMeta={initialMeta}
         error={error}
-        locale={locale}
       />
     </>
   )
 }
 
-Games.getInitialProps = async () => {
+Players.getInitialProps = async () => {
   try {
     const response = await axios.post(`${SERVER}/getList`, {
       data: {
-        url: 'games',
+        url: 'players',
         page: 1,
       }
     });
-
-    console.log(response);
   
     const { data } = response;
   
     if (!data.error) {
+      const sortedData = data.data.sort((a, b) => (a.first_name > b.first_name) ? 1 : -1);
+  
       return {
-        initialData: data.data,
+        initialData: sortedData,
         initialMeta: data.meta,
         error: false,
       }
@@ -77,4 +73,4 @@ Games.getInitialProps = async () => {
   }
 }
 
-export default Games;
+export default Players;

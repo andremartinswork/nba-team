@@ -3,46 +3,44 @@ import axios from 'axios';
 
 import {
   SERVER
-} from '../../../config';
+} from '../../config';
 
 import {
   Header,
-} from '../../../src/components/molecules';
+} from '../../src/components/molecules';
 
 import {
   List,
-} from '../../../src/components/organisms';
+} from '../../src/components/organisms';
 
-function Teams(props) {
+function Games(props) {
   const {
     initialData,
     initialMeta,
     error,
   } = props;
 
-  const locale = "en"
-
   return (
     <>
       <Header 
-        title="Teams"
+        title="Games"
       />
       <List
-        url="teams"
+        orderBy="id"
+        url="games"
         initialData={initialData}
         initialMeta={initialMeta}
         error={error}
-        locale={locale}
       />
     </>
   )
 }
 
-Teams.getInitialProps = async () => {
+Games.getInitialProps = async () => {
   try {
     const response = await axios.post(`${SERVER}/getList`, {
       data: {
-        url: 'teams',
+        url: 'games',
         page: 1,
       }
     });
@@ -50,8 +48,10 @@ Teams.getInitialProps = async () => {
     const { data } = response;
   
     if (!data.error) {
+      const sortedData = data.data.sort((a, b) => (a.id > b.id) ? 1 : -1);
+  
       return {
-        initialData: data.data,
+        initialData: sortedData,
         initialMeta: data.meta,
         error: false,
       }
@@ -73,4 +73,4 @@ Teams.getInitialProps = async () => {
   }
 }
 
-export default Teams;
+export default Games;

@@ -15,11 +15,7 @@ import { GiBabyfootPlayers } from 'react-icons/gi';
 import { FaBasketballBall } from 'react-icons/fa';
 import { AiOutlineTeam } from 'react-icons/ai';
 
-function Sidebar(props) {
-  const {
-    locale
-  } = props;
-
+function Sidebar() {
   const router = useRouter()
 
   function LinkActive(href) {
@@ -35,10 +31,9 @@ function Sidebar(props) {
         NBA TEAM
       </Logo>
       <Nav>
-
         {/* GAMES */}
-        <NavLink active={LinkActive(`/${locale}/games`)}>
-          <Link href="/[lang]/games" as={`/${locale}/games`}>
+        <NavLink active={LinkActive(`/games`)}>
+          <Link href="/games" as={`/games`}>
             <a>
               <Icon>
                 <FaBasketballBall />
@@ -49,8 +44,8 @@ function Sidebar(props) {
         </NavLink>
 
         {/* TEAMS */}
-        <NavLink active={LinkActive(`/${locale}/teams`)}>
-          <Link href="/[lang]/teams" as={`/${locale}/teams`}>
+        <NavLink active={LinkActive(`/teams`)}>
+          <Link href="/teams" as={`/teams`}>
             <a>
               <Icon>
                 <GiBabyfootPlayers />
@@ -61,8 +56,8 @@ function Sidebar(props) {
         </NavLink>
 
         {/* PLAYERS */}
-        <NavLink active={LinkActive(`/${locale}/players`)}>
-          <Link href="/[lang]/players" as={`/${locale}/players`}>
+        <NavLink active={LinkActive(`/players`)}>
+          <Link href="/players" as={`/players`}>
             <a>
               <Icon>
                 <AiOutlineTeam />

@@ -1,16 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 
-import { SERVER } from '../../../../config';
+import { SERVER } from '../../../config';
 
 import {
   Header
-} from '../../../../src/components/molecules';
+} from '../../../src/components/molecules';
 
 import {
   Player,
   List,
-} from '../../../../src/components/organisms';
+} from '../../../src/components/organisms';
 
 function PlayerDetail(props) {
   const {

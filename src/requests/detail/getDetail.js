@@ -11,19 +11,15 @@ module.exports = (server) => {
       const response = await api.get(`/${url}/${id}`)
       const { data } = response;
 
-      console.log(data)
-
       return res.send({
         data: data ? data : [],
         error: false,
-        errorMessage: null,
       })
     }
     catch(error) {
       return res.send({
         data: [],
         error: true,
-        errorMessage: error.message,
       })
     }
   })

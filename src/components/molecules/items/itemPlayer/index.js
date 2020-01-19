@@ -13,11 +13,10 @@ function ItemPlayer({
   id,
   first_name,
   last_name,
-  locale
 }) {
   return (
     <Item>
-      <Link href={`/[lang]/players/[id]`} as={`/${locale}/players/${id}`}>
+      <Link href={`/players/[id]`} as={`/players/${id}`}>
         <a>
           <Content>
             <Label>

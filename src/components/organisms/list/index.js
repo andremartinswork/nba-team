@@ -13,17 +13,18 @@ import {
   ItemGame,
   ItemPlayerStats,
   Pagination,
+  Loading,
 } from '../../molecules';
 
 function List(props) {
   const {
+    orderBy = 'id',
     id,
     request = "getList",
     url,
     initialData,
     initialMeta,
     error,
-    locale
   } = props;
 
   if (error) {
@@ -60,13 +61,11 @@ function List(props) {
       .then(response => {
         const { data } = response;
         if (!data.error) {
-
-          console.log('DAta', data);
           setStatusData(2);
-          setData([...data.data])
+          const sortedData = data.data.sort((a, b) => (a[orderBy] > b[orderBy]) ? 1 : -1);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setData([...sortedData])
           setMeta([...data.meta])
-
-          
         }
         else {
           setStatusData(3);
@@ -91,7 +90,6 @@ function List(props) {
                   return (
                     <ItemTeam
                       key={String(index)}
-                      locale={locale}
                       {...item}
                     />
                   )
@@ -100,7 +98,6 @@ function List(props) {
                   return (
                     <ItemPlayer
                       key={String(index)}
-                      locale={locale}
                       {...item}
                     />
                   )
@@ -109,7 +106,6 @@ function List(props) {
                   return (
                     <ItemGame
                       key={String(index)}
-                      locale={locale}
                       {...item}
                     />
                   )
@@ -118,7 +114,6 @@ function List(props) {
                   return (
                     <ItemPlayerStats
                       key={String(index)}
-                      locale={locale}
                       {...item}
                     />
                   )
@@ -138,13 +133,22 @@ function List(props) {
       }
     }
 
+    function RenderError() {
+      if (statusData === 3) {
+        return (
+          <div>Error...</div>
+        )
+      }
+      return null
+    }
+
     function RenderLoading() {
       if (statusData === 1) {
         return (
-          <div>Loading...</div>
+          <Loading />
         )
       }
-      return null;
+      return null
     }
 
     function RenderPagination() {
@@ -164,6 +168,7 @@ function List(props) {
     return (
       <Block>
         {RenderRows()}
+        {RenderError()}
         {RenderLoading()}
         {RenderPagination()}
       </Block>

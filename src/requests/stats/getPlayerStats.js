@@ -15,7 +15,6 @@ module.exports = (server) => {
         data: data ? data.data : [],
         meta: data ? data.meta : [],
         error: false,
-        errorMessage: null,
       })
     }
     catch(error) {
@@ -23,7 +22,6 @@ module.exports = (server) => {
         data: [],
         meta: [],
         error: true,
-        errorMessage: error.message,
       })
     }
   })

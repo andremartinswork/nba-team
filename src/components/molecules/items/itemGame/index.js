@@ -11,11 +11,10 @@ import {
 
 function ItemGame({
   id,
-  locale,
 }) {
   return (
     <Item>
-      <Link href={`/[lang]/games/[id]`} as={`/${locale}/games/${id}`}>
+      <Link href={`/games/[id]`} as={`/games/${id}`}>
         <a>
           <Content>
             <Label>

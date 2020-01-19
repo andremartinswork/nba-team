@@ -22,6 +22,10 @@ const WrapperPagination = styled.div`
     :focus {
       outline: none;
     }
+
+    :hover {
+      cursor: pointer;
+    }
   }
 
   .previous {

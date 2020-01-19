@@ -1,17 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 
-import { SERVER } from '../../../../config';
+import { SERVER } from '../../../config';
 
 import {
   Header
-} from '../../../../src/components/molecules';
+} from '../../../src/components/molecules';
 
 import {
-  Game,
-} from '../../../../src/components/organisms';
+  Team,
+} from '../../../src/components/organisms';
 
-function GameDetail(props) {
+function TeamDetail(props) {
   const {
     data
   } = props;
@@ -19,22 +19,22 @@ function GameDetail(props) {
   return(
     <>
       <Header
-        title={`Game - ${data.id}`}
+        title="Team Detail"
       />
-      <Game
+      <Team
         {...data}
       />
     </>
   )
 }
 
-GameDetail.getInitialProps = async ({ query }) => {
+TeamDetail.getInitialProps = async ({ query }) => {
   const { id } = query;
 
   try {
     const response = await axios.post(`${SERVER}/getDetail`, {
       data: {
-        url: 'games',
+        url: 'teams',
         id: id,
       }
     });
@@ -62,4 +62,4 @@ GameDetail.getInitialProps = async ({ query }) => {
   }
 }
 
-export default GameDetail;
+export default TeamDetail;

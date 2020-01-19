@@ -1,12 +1,7 @@
 import App from 'next/app'
 import React from 'react';
-import { ThemeProvider } from 'styled-components'
-
-const theme = {
-  colors: {
-    primary: '#0070f3',
-  },
-}
+import NProgress from 'nprogress'
+import Router from 'next/router'
 
 import {
   Layout,
@@ -17,17 +12,25 @@ import {
   ResetCss
 } from '../src/styles';
 
-export default class MyApp extends App {
+Router.events.on('routeChangeStart', () => {
+  NProgress.start()
+})
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
+
+class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
     return (
-      <ThemeProvider theme={theme}>
+      <>
         <ResetCss />
         <Global />
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </ThemeProvider>
+      </>
     )
   }
 }
+
+export default MyApp;

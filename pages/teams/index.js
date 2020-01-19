@@ -3,46 +3,44 @@ import axios from 'axios';
 
 import {
   SERVER
-} from '../../../config';
+} from '../../config';
 
 import {
   Header,
-} from '../../../src/components/molecules';
+} from '../../src/components/molecules';
 
 import {
   List,
-} from '../../../src/components/organisms';
+} from '../../src/components/organisms';
 
-function Players(props) {
+function Teams(props) {
   const {
     initialData,
     initialMeta,
     error,
   } = props;
 
-  const locale = "en"
-
   return (
     <>
       <Header 
-        title="Players"
+        title="Teams"
       />
       <List
-        url="players"
+        orderBy="full_name"
+        url="teams"
         initialData={initialData}
         initialMeta={initialMeta}
         error={error}
-        locale={locale}
       />
     </>
   )
 }
 
-Players.getInitialProps = async () => {
+Teams.getInitialProps = async () => {
   try {
     const response = await axios.post(`${SERVER}/getList`, {
       data: {
-        url: 'players',
+        url: 'teams',
         page: 1,
       }
     });
@@ -50,8 +48,10 @@ Players.getInitialProps = async () => {
     const { data } = response;
   
     if (!data.error) {
+      const sortedData = data.data.sort((a, b) => (a.full_name > b.full_name) ? 1 : -1);
+  
       return {
-        initialData: data.data,
+        initialData: sortedData,
         initialMeta: data.meta,
         error: false,
       }
@@ -73,4 +73,4 @@ Players.getInitialProps = async () => {
   }
 }
 
-export default Players;
+export default Teams;

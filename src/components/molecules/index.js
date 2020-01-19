@@ -5,6 +5,7 @@ import ItemPlayerStats from './items/itemPlayerStats';
 import ItemGame from './items/itemGame';
 import Pagination from './pagination';
 import Sidebar from './sidebar';
+import Loading from './loading';
 
 export {
   Header,
@@ -13,6 +14,7 @@ export {
   ItemPlayerStats,
   ItemGame,
   Pagination,
-  Sidebar
+  Sidebar,
+  Loading,
 }
 

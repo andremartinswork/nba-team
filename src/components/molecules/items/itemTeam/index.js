@@ -12,11 +12,10 @@ import {
 function ItemTeam({
   id,
   full_name,
-  locale
 }) {
   return (
     <Item>
-      <Link href={`/[lang]/teams/[id]`} as={`/${locale}/teams/${id}`}>
+      <Link href={`/teams/[id]`} as={`/teams/${id}`}>
         <a>
           <Content>
             <Label>

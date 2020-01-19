@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react'
-import Head from 'next/head'
-// import { getInitialLocale } from '../src/translations/getInitialLocate'
+import React, { useEffect } from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 function Index() {
   const router = useRouter();
 
-  // useEffect(() => {
-  //   router.replace('/[lang]', `/${getInitialLocale()}`)
-  // })
+  useEffect(() => {
+    router.replace('/', `/games`)
+  })
 
   return (
     <Head>
